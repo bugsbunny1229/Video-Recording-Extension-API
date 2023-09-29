@@ -28,7 +28,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['*', 'localhost', 'https://chrome-extension-api-6tfw2.ondigitalocean.app']
+ALLOWED_HOSTS = ['*', 'localhost', 'https://chrome-extension-api-6tfw2.ondigitalocean.app', 'https://chrome-extension-api-6tfw2.ondigitalocean.app/api']
 
 
 # if IS_HEROKU_APP:

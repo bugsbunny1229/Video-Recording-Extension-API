@@ -3,7 +3,7 @@ This documentation provides an overview of the API endpoints, request and respon
 
 ### Base URL
 ```bash
-https://chrom-extension-plugin-api-a65ab3a96692.herokuapp.com
+https://chrome-extension-api-6tfw2.ondigitalocean.app
 ```
 
 # API Endpoint: Upload Video
