@@ -29,7 +29,7 @@ IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 DEBUG = True
 
 if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ["*", "https://chrom-extension-plugin-api-a65ab3a96692.herokuapp.com"]
 else:
     ALLOWED_HOSTS = []
 
