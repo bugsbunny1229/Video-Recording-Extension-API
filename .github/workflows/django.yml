@@ -32,16 +32,15 @@ jobs:
   
   deploy:
     runs-on: ubuntu-latest
-    name: deploy our django application to heroku
+    name: deploy our django application to digital ocean
     needs: [build]
     steps:
        - name: Checkout code
          uses: actions/checkout@v2
 
-       - name: Deploy app
-         uses: akhileshns/heroku-deploy@v3.12.14 # This is the action
+       - name: DigitalOcean App Platform deployment
+         uses: digitalocean/app_action@v1.1.5 # This is the action
          with:
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: ${{secrets.HEROKU_APP_NAME}} #Must be unique in Heroku
-            heroku_email: "johndbizz@gmail.com"
-            branch: "master"
+            app_name: chrome-extension-api # Change seashell-app to our Digital Ocean app name
+            token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }} # Set DIGITALOCEAN_ACCESS_TOKEN in Repository secrets
+            # branch: "master"
