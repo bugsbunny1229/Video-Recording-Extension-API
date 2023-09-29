@@ -25,7 +25,6 @@ jobs:
       #     flake8 .
       - name: Run migrations
         run: |
-          python manage.py makemigrations
           python manage.py migrate
       - name: Runing the tests
         run: |
