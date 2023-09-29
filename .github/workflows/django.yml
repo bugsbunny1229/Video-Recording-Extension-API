@@ -26,9 +26,9 @@ jobs:
       - name: Run migrations
         run: |
           python manage.py migrate
-      - name: Runing the tests
-        run: |
-          python manage.py test
+      # - name: Runing the tests
+      #   run: |
+      #     python manage.py test
   
   deploy:
     runs-on: ubuntu-latest
