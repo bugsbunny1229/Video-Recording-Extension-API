@@ -27,7 +27,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
     
-ALLOWED_HOSTS = ["*", "https://chrom-extension-plugin-api-a65ab3a96692.herokuapp.com"]
+ALLOWED_HOSTS = ["*"]
 
 APPEND_SLASH = False
 REMOVE_SLASH = True
