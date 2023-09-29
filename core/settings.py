@@ -33,6 +33,9 @@ if IS_HEROKU_APP:
 else:
     ALLOWED_HOSTS = []
 
+APPEND_SLASH = False
+REMOVE_SLASH = True
+
 
 # Application definition
 
