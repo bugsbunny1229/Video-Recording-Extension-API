@@ -24,7 +24,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title = "Chrome Extension API", 
         default_version = "v1",
-        description = "A Chrome extension API provides the capability for individuals to stream binary data and seamlessly append it to an ongoing video recording process. Afterward, it saves the video and employs OpenAI Whisper to accurately transcribe the contents of these saved videos.",
+        description = "A Chrome extension API that provides the capability for individuals to stream binary data and seamlessly append it to an ongoing video recording process. Afterward, it saves the video and employs OpenAI Whisper to accurately transcribe the contents of these saved videos.",
         contact = openapi.Contact(email="johndbizz@gmail.com"),
         license = openapi.License(name="MIT License") 
         ),
