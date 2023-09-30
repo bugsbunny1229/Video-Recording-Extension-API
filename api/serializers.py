@@ -1,7 +1,8 @@
 from rest_framework import serializers
-from .models import Video
+from .models import VideoRecording
 
-class VideoSerializer(serializers.ModelSerializer):
+class VideoRecordingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Video
+        model = VideoRecording
         fields = '__all__'
+

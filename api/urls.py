@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import upload_video, list_videos
+from .views import CreateVideoRecording, AddDataToRecording, CompleteRecording
 
 urlpatterns = [
-    path('api', upload_video, name='upload_video'),
-    path('api/list', list_videos, name='video-list'),
+    path('create/', CreateVideoRecording.as_view(), name='create-video-recording'),
+    path('add-data/<uuid:uuid>/', AddDataToRecording.as_view(), name='add-data-to-recording'),
+    path('complete/<uuid:uuid>/', CompleteRecording.as_view(), name='complete-recording'),
 ]
