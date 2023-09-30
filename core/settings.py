@@ -36,8 +36,8 @@ ALLOWED_HOSTS = ['*', 'localhost', 'https://chrome-extension-api-6tfw2.ondigital
 # else:
 #     ALLOWED_HOSTS = []
 
-APPEND_SLASH = False
-REMOVE_SLASH = True
+# APPEND_SLASH = False
+# REMOVE_SLASH = True
 
 
 # Application definition
