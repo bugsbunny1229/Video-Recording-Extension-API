@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import VideoRecording
 from .serializers import VideoRecordingSerializer
+import openai
 
 class CreateVideoRecording(APIView):
     def post(self, request):
@@ -40,6 +41,22 @@ class CompleteRecording(APIView):
         video_url = video_recording.video_url
 
         if video_url:
-            return Response({'message': 'Recording marked as complete.', 'video_url': video_url}, status=status.HTTP_200_OK)
+            # Transcribe the video using OpenAI Whisper
+            try:
+                openai.api_key = settings.OPENAI_API_KEY
+                transcription = openai.Transcription.create(
+                    audio_url=video_url,
+                    model="whisper",
+                    language="en-US",
+                )
+                transcription_text = transcription['text']
+            except Exception as e:
+                return Response({'error': 'Transcription failed.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response({
+                'message': 'Recording marked as complete.',
+                'video_url': video_url,
+                'transcription_text': transcription_text,
+            }, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'Recording marked as complete.'}, status=status.HTTP_200_OK)

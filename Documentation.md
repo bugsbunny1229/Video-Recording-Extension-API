@@ -3,7 +3,7 @@ This documentation provides an overview of the API endpoints, request and respon
 
 ### Base URL
 ```bash
-https://chrome-extension-api-6tfw2.ondigitalocean.app
+https://chrome-extension-api-6tfw2.ondigitalocean.app/api/
 ```
 
 # API Endpoint: Upload Video

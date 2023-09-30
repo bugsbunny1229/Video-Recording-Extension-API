@@ -26,3 +26,4 @@ gunicorn==21.2.0
 Pillow==9.4.0
 boto3==1.28.49
 botocore==1.31.49
+openai
