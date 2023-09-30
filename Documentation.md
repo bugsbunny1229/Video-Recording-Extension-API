@@ -15,10 +15,10 @@ This endpoint creates a new video recording session and returns a unique identif
 * HTTP Method: POST
 * Authentication: None (No authentication required)
 * Request:
-- No request data is required.
+  * No request data is required.
 * Response:
-- **200 OK:** Video recording session created successfully.
-- **201 Created:** Video recording session created successfully, and a UUID is provided in the response.
+  * 200 OK: Video recording session created successfully.
+  * 201 Created: Video recording session created successfully, and a UUID is provided in the response.
 
 **Example Request:**
 
@@ -43,14 +43,14 @@ Use this endpoint to append binary data to an existing video recording session i
 * HTTP Method: PATCH
 * Authentication: None (No authentication required)
 * Request:
-- Path Parameters:
-- uuid (string, required): The UUID of the video recording session to update.
+  * Path Parameters:
+  * uuid (string, required): The UUID of the video recording session to update.
 * Request Data:
-- binary_data (binary, required): The binary data to append to the video file.
+  * binary_data (binary, required): The binary data to append to the video file.
 * Response:
-**200 OK:** Data appended successfully.
-**400 Bad Request:** Data cannot be appended (e.g., recording is already complete).
-**404 Not Found:** The specified video recording session does not exist.
+  * 200 OK: Data appended successfully.
+  * 400 Bad Request: Data cannot be appended (e.g., recording is already complete).
+  * 404 Not Found: The specified video recording session does not exist.
 
 **Example Request:**
 
@@ -60,7 +60,7 @@ Content-Type: application/octet-stream
 ```
 
 **Example Request Body:**
-- Binary data stream (e.g., video frames).
+  * Binary data stream (e.g., video frames).
 
 **Example Response (200 OK):**
 
@@ -79,13 +79,13 @@ This endpoint marks a video recording session as complete, indicating that the r
 * HTTP Method: PATCH
 * Authentication: None (No authentication required)
 * Request:
-- Path Parameters:
-- uuid (string, required): The UUID of the video recording session to mark as complete.
+  * Path Parameters:
+  * uuid (string, required): The UUID of the video recording session to mark as complete.
 * Response:
-**200 OK:** Recording marked as complete. Transcription of the video is also provided if available.
-**400 Bad Request:** Recording cannot be marked as complete (e.g., no video file or already complete).
-**404 Not Found:** The specified video recording session does not exist.
-**500 Internal Server Error:** Transcription of the video failed.
+  * 200 OK: Recording marked as complete. Transcription of the video is also provided if available.
+  * 400 Bad Request: Recording cannot be marked as complete (e.g., no video file or already complete).
+  * 404 Not Found: The specified video recording session does not exist.
+  * 500 Internal Server Error: Transcription of the video failed.
 
 **Example Request:**
 
