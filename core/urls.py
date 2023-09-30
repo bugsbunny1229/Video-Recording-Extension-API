@@ -17,7 +17,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+schema_view = get_schema_view(
+    openapi.Info(
+        title = "Chrome Extension API", 
+        default_version = "v1",
+        description = "A Chrome extension API provides the capability for individuals to stream binary data and seamlessly append it to an ongoing video recording process. Afterward, it saves the video and employs OpenAI Whisper to accurately transcribe the contents of these saved videos.",
+        contact = openapi.Contact(email="johndbizz@gmail.com"),
+        license = openapi.License(name="MIT License") 
+        ),
+        public = True,
+        # permission_classes=(permissions.AllowAny,),
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
