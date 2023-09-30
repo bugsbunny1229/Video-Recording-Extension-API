@@ -3,113 +3,109 @@ This documentation provides an overview of the API endpoints, request and respon
 
 ### Base URL
 ```bash
-https://chrome-extension-api-6tfw2.ondigitalocean.app/api/
+https://chrome-extension-api-6tfw2.ondigitalocean.app/
 ```
 
-# API Endpoint: Upload Video
+# Create a Video Recording
 
 ## Description:
-This endpoint allows users to upload video files. It performs validation to ensure that only video files with certain extensions are accepted.
+This endpoint creates a new video recording session and returns a unique identifier (UUID) that can be used for subsequent interactions.
 
-* URL: /api
+* URL: /api/create/
 * HTTP Method: POST
 * Authentication: None (No authentication required)
-* Request Body: A POST request should include a video file in the video_file field.
+* Request:
+- No request data is required.
+* Response:
+- **200 OK:** Video recording session created successfully.
+- **201 Created:** Video recording session created successfully, and a UUID is provided in the response.
 
-**Request Example:**
-
-```http
-POST /api HTTP/1.1
-Host: example.com
-Content-Type: multipart/form-data; boundary=---------------------------1234567890123456789012345678
-Content-Length: 12345
-
------------------------------1234567890123456789012345678
-Content-Disposition: form-data; name="video_file"; filename="sample.mp4"
-Content-Type: video/mp4
-
-[Binary video data]
------------------------------1234567890123456789012345678--
-```
-
-**Response Example:**
+**Example Request:**
 
 ```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-    "message": "Video uploaded successfully.",
-    "video_url": "http://example.com/media/videos/sample.mp4"
-}
+POST /api/create/
 ```
 
-**Error Responses:**
-
-* *400 Bad Request:*
-- If the request does not contain a valid video file.
-- If the uploaded file is not a video or has an invalid format.
-- If the video file format is not supported.
+**Example Response (201 Created):**
 
 ```json
 {
-    "error": "Invalid file type. Only video files are allowed."
+    "uuid": "98b6f078-7b13-4f90-95a0-6f957d0f899e"
 }
 ```
 
-* *500 Internal Server Error:*
-- If there is an unexpected error during file upload or database operation
-
-```json
-{
-    "error": "Internal Server Error"
-}
-```
-
-
-# API Endpoint: List All Videos
+# Add Data to a Video Recording
 
 ## Description:
-This endpoint retrieves a list of all uploaded videos.
+Use this endpoint to append binary data to an existing video recording session identified by its UUID. The binary data is streamed and added to the video file while recording is in progress.
 
-* URL: /api/list
-* HTTP Method: GET
+* URL: /api/add-data/{uuid}/
+* HTTP Method: PATCH
 * Authentication: None (No authentication required)
+* Request:
+- Path Parameters:
+- uuid (string, required): The UUID of the video recording session to update.
+* Request Data:
+- binary_data (binary, required): The binary data to append to the video file.
+* Response:
+**200 OK:** Data appended successfully.
+**400 Bad Request:** Data cannot be appended (e.g., recording is already complete).
+**404 Not Found:** The specified video recording session does not exist.
 
-**Request Example:**
+**Example Request:**
 
 ```http
-GET /api/list HTTP/1.1
-Host: example.com
+PATCH /api/add-data/98b6f078-7b13-4f90-95a0-6f957d0f899e/
+Content-Type: application/octet-stream
 ```
 
-**Response Example:**
+**Example Request Body:**
+- Binary data stream (e.g., video frames).
 
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-
-[
-    {
-        "id": 1,
-        "video_file": "http://example.com/media/videos/sample1.mp4",
-        "timestamp": "2023-09-28T12:00:00Z"
-    },
-    {
-        "id": 2,
-        "video_file": "http://example.com/media/videos/sample2.mp4",
-        "timestamp": "2023-09-28T12:30:00Z"
-    }
-]
-```
-
-**Error Responses:**
-
-* *500 Internal Server Error:*
-- If there is an unexpected error while retrieving the list of videos.
+**Example Response (200 OK):**
 
 ```json
 {
-    "error": "Internal Server Error"
+    "message": "Data appended successfully."
+}
+```
+
+# Complete a Video Recording and Transcribe
+
+## Description:
+This endpoint marks a video recording session as complete, indicating that the recording process has finished. Once marked as complete, the video file is ready for use, and it is transcribed using OpenAI Whisper.
+
+* URL: /api/complete/{uuid}/
+* HTTP Method: PATCH
+* Authentication: None (No authentication required)
+* Request:
+- Path Parameters:
+- uuid (string, required): The UUID of the video recording session to mark as complete.
+* Response:
+**200 OK:** Recording marked as complete. Transcription of the video is also provided if available.
+**400 Bad Request:** Recording cannot be marked as complete (e.g., no video file or already complete).
+**404 Not Found:** The specified video recording session does not exist.
+**500 Internal Server Error:** Transcription of the video failed.
+
+**Example Request:**
+
+```http
+PATCH /api/complete/98b6f078-7b13-4f90-95a0-6f957d0f899e/
+```
+
+**Example Response (200 OK with Transcription):**
+```json
+{
+    "message": "Recording marked as complete.",
+    "video_url": "https://example.com/videos/98b6f078-7b13-4f90-95a0-6f957d0f899e.mp4",
+    "transcription_text": "Transcribed text of the video."
+}
+```
+
+**Example Response (200 OK without Transcription):**
+
+```json
+{
+    "message": "Recording marked as complete."
 }
 ```
